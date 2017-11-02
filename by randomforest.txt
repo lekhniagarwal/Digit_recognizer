@@ -1,0 +1,30 @@
+from sklearn.ensemble import RandomForestClassifier
+import numpy as np
+import pandas as pd
+
+# create the training & test sets, skipping the header row with [1:]
+dataset = pd.read_csv("G:/technical/python/digitrecognizer/train.csv")
+target = dataset[[0]].values.ravel()
+train = dataset.iloc[:,1:].values
+test = pd.read_csv("G:/technical/python/digitrecognizer/test.csv").values
+
+
+
+
+
+rf = RandomForestClassifier(n_estimators=100)
+rf.fit(train, target)
+pred = rf.predict(test)
+
+
+
+
+ImageId = np.arange(1,28001,1)
+my_solution = pd.DataFrame(pred, ImageId, columns = ["Label"])
+
+
+
+
+
+# Write your solution i.e my solution datframe to a csv file with the name third.csv and it will save in location given
+my_solution.to_csv("G:/technical/python/digitrecognizer/first.csv", index_label = ["ImageId"])
